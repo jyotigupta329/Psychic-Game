@@ -42,6 +42,7 @@
     //var countUserGuess = 0;
     var totalGuess = 10;
     var displayUserGuess = [];
+    var flag = 0;
 
     // Randomly chooses a choice from the options array. This is the Computer's guess.
     var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
@@ -53,39 +54,52 @@
       // Determines which key was pressed.
       var userGuess = event.key;
 
-      displayUserGuess.push(userGuess);
-      var displayGuess = document.getElementById("displayUserGuessId");
-      displayGuess.textContent = displayUserGuess.join(', ');
+      for (var i = 0; i < displayUserGuess.length; i++) {
+        if (userGuess === displayUserGuess[i]) {
+          flag = 1;
+          alert("U already guessed this alphabet!")
+        } else {
+          flag = 0;
+        }
+
+      }
+
+      if (flag === 0) {
+
+        displayUserGuess.push(userGuess);
+        var displayGuess = document.getElementById("displayUserGuessId");
+        displayGuess.textContent = displayUserGuess.join(', ');
 
 
-      if (userGuess !== computerGuess) {
-        totalGuess--;
-        var Guesses = document.getElementById("guessId");
-        Guesses.textContent = totalGuess;
-        if (totalGuess === 0) {
-          alert("You lost the game");
+        if (userGuess !== computerGuess) {
+          totalGuess--;
+          var Guesses = document.getElementById("guessId");
+          Guesses.textContent = totalGuess;
+          if (totalGuess === 0) {
+            alert("You lost the game");
+            displayUserGuess = [];
+            displayGuess.textContent = displayUserGuess.join(', ');
+            loss++;
+            totalGuess = 10; // reset total guess for new game;
+
+          }
+          var losses = document.getElementById("lossId");
+          losses.textContent = loss;
+        }
+
+        else if (userGuess === computerGuess) {
+          alert("Congratulations you won !");
+          win++;
           displayUserGuess = [];
           displayGuess.textContent = displayUserGuess.join(', ');
-          loss++;
+          alert("Want to play more !")
           totalGuess = 10; // reset total guess for new game;
 
         }
-        var losses = document.getElementById("lossId");
-        losses.textContent = loss;
+
+        var wins = document.getElementById("winId");
+        wins.textContent = win;
       }
-
-      else if (userGuess === computerGuess) {
-        alert("Congratulations you won !");
-        win++;
-        displayUserGuess = [];
-        displayGuess.textContent = displayUserGuess.join(', ');
-        alert("Want to play more !")
-        totalGuess = 10; // reset total guess for new game;
-
-      }
-
-      var wins = document.getElementById("winId");
-      wins.textContent = win;
     };
   </script>
 

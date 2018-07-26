@@ -43,20 +43,20 @@
     var totalGuess = 10;
     var displayUserGuess = [];
 
+    // Randomly chooses a choice from the options array. This is the Computer's guess.
+    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+
     // This function is run whenever the user presses a key.
     document.onkeyup = function (event) {
 
-      // Randomly chooses a choice from the options array. This is the Computer's guess.
-      var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-
-
       // Determines which key was pressed.
       var userGuess = event.key;
-      
+
       displayUserGuess.push(userGuess);
-        var displayGuess = document.getElementById("displayUserGuessId");
-        displayGuess.textContent = displayUserGuess.join(', ');
-     
+      var displayGuess = document.getElementById("displayUserGuessId");
+      displayGuess.textContent = displayUserGuess.join(', ');
+
 
       if (userGuess !== computerGuess) {
         totalGuess--;
@@ -67,7 +67,8 @@
           displayUserGuess = [];
           displayGuess.textContent = displayUserGuess.join(', ');
           loss++;
-          totalGuess = 10;
+          totalGuess = 10; // reset total guess for new game;
+
         }
         var losses = document.getElementById("lossId");
         losses.textContent = loss;
